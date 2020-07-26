@@ -25,6 +25,7 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
+
         PetType dog = new PetType();
         dog.setName("Dog");
         PetType cat = new PetType();
@@ -32,6 +33,7 @@ public class DataLoader implements CommandLineRunner {
 
         PetType savedDogPetType = petTypeService.save(dog);
         PetType savedCatPetType = petTypeService.save(cat);
+
 
 
         Owner owner1 = new Owner();
