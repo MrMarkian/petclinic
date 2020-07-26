@@ -39,7 +39,9 @@
         </dependency>
 
     </dependencies>
-
+    <scm>
+        <developerConnection>scm:git:https://github.com/MrMarkian/petclinic.git</developerConnection>
+    </scm>
     <build>
         <plugins>
             <plugin>
@@ -58,5 +60,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
