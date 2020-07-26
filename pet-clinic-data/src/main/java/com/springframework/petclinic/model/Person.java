@@ -1,6 +1,6 @@
 package com.springframework.petclinic.model;
 
-public class Person {
+public class Person extends BaseEntity{
 
     public String getFirstName() {
         return firstName;
@@ -20,7 +20,6 @@ public class Person {
 
     private String firstName;
     private String lastName;
-
 
 
 }
