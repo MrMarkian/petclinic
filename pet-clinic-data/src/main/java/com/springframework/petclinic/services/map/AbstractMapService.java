@@ -28,6 +28,7 @@ public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>
         }
 
         return object;
+
     }
 
     void deleteById(ID id){
@@ -39,7 +40,7 @@ public abstract class AbstractMapService <T extends BaseEntity, ID extends Long>
     }
 
     private Long getNextId(){
-        Long nextId;
+        long nextId;
                 try {
                     nextId = Collections.max(map.keySet()) + 1;
                 } catch(NoSuchElementException e){
