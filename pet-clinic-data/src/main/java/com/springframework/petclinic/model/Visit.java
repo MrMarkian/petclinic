@@ -6,7 +6,6 @@ public class Visit extends BaseEntity {
 
     private LocalDate date;
 
-
     public LocalDate getDate() {
         return date;
     }
