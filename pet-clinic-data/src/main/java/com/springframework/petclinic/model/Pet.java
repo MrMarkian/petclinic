@@ -2,6 +2,8 @@ package com.springframework.petclinic.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "pets")
@@ -20,6 +22,9 @@ public class Pet extends BaseEntity{
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet_id")
+    private Set<Visit> visitSet = new HashSet<>();
 
     public PetType getPetType() {
         return petType;
@@ -51,5 +56,13 @@ public class Pet extends BaseEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Visit> getVisitSet() {
+        return visitSet;
+    }
+
+    public void setVisitSet(Set<Visit> visitSet) {
+        this.visitSet = visitSet;
     }
 }
