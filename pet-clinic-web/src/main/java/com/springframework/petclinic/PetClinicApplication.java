@@ -11,8 +11,7 @@ public class PetClinicApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PetClinicApplication.class, args);
-		System.out.println("Hi!");
-		System.out.println("and Bye!");
+		System.out.println("Main Executed.");
 	}
 
 }
