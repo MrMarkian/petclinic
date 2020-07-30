@@ -2,9 +2,11 @@ package com.springframework.petclinic.services.map;
 
 import com.springframework.petclinic.model.Visit;
 import com.springframework.petclinic.services.VisitService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class VisitMapService extends  AbstractMapService<Visit, Long> implements VisitService {
 
     @Override
@@ -20,7 +22,7 @@ public class VisitMapService extends  AbstractMapService<Visit, Long> implements
     @Override
     public Visit save(Visit thisVisit) {
         //Validate object before saving.
-        if (thisVisit.getPet() ==null
+        if (thisVisit.getPet() == null
                 || thisVisit.getPet().getOwner() == null
                 || thisVisit.getPet().getId() == null
                 || thisVisit.getPet().getOwner().getId() == null)
