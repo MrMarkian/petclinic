@@ -1,11 +1,19 @@
 package com.springframework.petclinic.model;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass  //Establishes JPA Base Class.
 public class BaseEntity implements Serializable {
 
@@ -14,10 +22,4 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Take the databases method for id generation
     private Long id;
 
-    public Long getId(){
-        return id;
-    }
-    public void setId(Long id){
-        this.id =id;
-    }
 }
