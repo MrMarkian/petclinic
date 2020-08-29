@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass  //Establishes JPA Base Class.
