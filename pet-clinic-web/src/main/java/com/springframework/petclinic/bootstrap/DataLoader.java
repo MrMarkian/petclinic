@@ -52,7 +52,7 @@ public class DataLoader implements CommandLineRunner {
         Speciality savedSurgery = specialityService.save(surgery);
 
         Speciality dentistry = new Speciality();
-        dentistry.setDescription("dentistry");
+        dentistry.setDescription("Dentistry");
         Speciality savedDentistry = specialityService.save(dentistry);
 
         Owner owner1 = new Owner();
@@ -80,13 +80,31 @@ public class DataLoader implements CommandLineRunner {
 
 
         Pet fionasCat = new Pet();
-        fionasCat.setName("Just Cat");
+        fionasCat.setName("Boris");
         fionasCat.setOwner(owner2);
         fionasCat.setBirthDate(LocalDate.now());
         fionasCat.setPetType(savedCatPetType);
         owner2.getPets().add(fionasCat);
 
         ownerService.save(owner2);
+
+        Owner owner3 = new Owner();
+        owner3.setFirstName("Faye");
+        owner3.setLastName("Glevier");
+        owner3.setAddress("69 Red Light Lane");
+        owner3.setCity("Seattle");
+        owner3.setTelephone("555-999-888");
+
+
+        Pet faysCat = new Pet();
+        faysCat.setName("Xena");
+        faysCat.setOwner(owner3);
+        faysCat.setBirthDate(LocalDate.now());
+        faysCat.setPetType(savedCatPetType);
+        owner3.getPets().add(faysCat);
+
+        ownerService.save(owner3);
+
 
         Visit catVisit = new Visit();
         catVisit.setPet(fionasCat);
@@ -109,8 +127,15 @@ public class DataLoader implements CommandLineRunner {
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
         vet2.getSpecialitySet().add(savedSurgery);
-
+        vet2.getSpecialitySet().add(savedDentistry);
         vetService.save(vet2);
+
+        Vet vet3 = new Vet();
+        vet3.setFirstName("Jackie");
+        vet3.setLastName("Parker");
+        vet3.getSpecialitySet().add(savedSurgery);
+        vet3.getSpecialitySet().add(savedDentistry);
+        vetService.save(vet3);
 
         System.out.println("Loaded Vets....");
         System.out.println(vet2.getFirstName());

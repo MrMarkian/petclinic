@@ -23,6 +23,7 @@
 
   <nav class="navbar navbar-default" role="navigation">
       <div class="container">
+
           <div class="navbar-header">
               <a class="navbar-brand" th:href="@{/}"><span></span></a>
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
@@ -31,6 +32,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
+
           </div>
           <div class="navbar-collapse collapse" id="main-navbar">
               <ul class="nav navbar-nav navbar-right">
@@ -66,6 +68,10 @@
           </div>
       </div>
   </nav>
+  <p id="demo" style="background-color: darkgray "></p>
+  <script>
+      document.getElementById("demo").innerHTML = Date().fontcolor("green");
+  </script>
   <div class="container-fluid">
       <div class="container xd-container">
   
