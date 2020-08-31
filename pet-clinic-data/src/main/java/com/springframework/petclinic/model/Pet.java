@@ -1,9 +1,6 @@
 package com.springframework.petclinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +14,19 @@ import java.util.Set;
 @Entity
 @Table(name = "pets")
 public class Pet extends BaseEntity{
+
+    @Builder
+    public Pet(Long id, String name, PetType petType, Owner owner, LocalDate birthDate, Set<Visit> visits){
+        super(id);
+        this.name = name;
+        this.petType = petType;
+        this.owner = owner;
+        this.birthDate = birthDate;
+
+        if (visits == null || visits.size() > 0){
+            this.visitSet = visits;
+        }
+    }
 
     @Column(name = "name")
     private String name;
@@ -35,4 +45,7 @@ public class Pet extends BaseEntity{
     @OneToMany(cascade = CascadeType.ALL)//, mappedBy = "pet_id")
     private Set<Visit> visitSet = new HashSet<>();
 
+    //Todo: Add Pet Imgae Handling
+    @Column(name = "Image")
+    private Byte[] image;
 }
