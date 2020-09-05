@@ -1,6 +1,7 @@
 package com.springframework.petclinic.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -40,9 +41,10 @@ public class Pet extends BaseEntity{
     private Owner owner;
 
     @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL)//, mappedBy = "pet_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
     private Set<Visit> visitSet = new HashSet<>();
 
     //Todo: Add Pet Imgae Handling

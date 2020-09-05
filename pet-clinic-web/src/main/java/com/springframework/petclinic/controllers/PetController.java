@@ -1,6 +1,5 @@
 package com.springframework.petclinic.controllers;
 
-
 import com.springframework.petclinic.model.Owner;
 import com.springframework.petclinic.model.Pet;
 import com.springframework.petclinic.model.PetType;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collection;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/owners/{ownerId}")
@@ -71,6 +71,9 @@ public class PetController {
             model.addAttribute("pet", pet);
             return  VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         } else {
+
+            owner.getPets().add(pet);
+            pet.setOwner(owner);
             petService.save(pet);
             return "redirect:/owners/{ownerId}";
         }
@@ -89,4 +92,11 @@ public class PetController {
             return "redirect:/owners/" + owner.getId();
         }
     }
+
+    @RequestMapping("/api/pets")
+    public @ResponseBody Set<Pet> getPetsJson()
+    {
+        return petService.findAll();
+    }
+
 }

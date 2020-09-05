@@ -21,13 +21,16 @@ public class PetTypeFormatter implements Formatter<PetType> {
     }
 
     @Override
-    public PetType parse(String s, Locale locale) throws ParseException {
+    public PetType parse(String text, Locale locale) throws ParseException {
         Collection<PetType> findPetType = petTypeService.findAll();
 
             for(PetType type : findPetType){
-                return type;
+                if(type.getName().equals(text)) {
+                    return type;
+                }
             }
-        throw new ParseException("Type Not Found.." , 0);
+
+        throw new ParseException("Type Not Found.." + text , 0);
 
     }
 

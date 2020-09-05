@@ -37,6 +37,9 @@ public class Owner extends Person{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    private Set<Account> accounts = new HashSet<>();
+
     public Pet getPet(String name){
         return getPet(name, false);
     }

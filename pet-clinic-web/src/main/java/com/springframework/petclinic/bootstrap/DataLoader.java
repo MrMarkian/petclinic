@@ -16,12 +16,19 @@ public class DataLoader implements CommandLineRunner {
     private final SpecialityService specialityService;
     private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
+    private final AccountService accountService;
+
+    private final PaymentService paymentService;
+
+
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService, AccountService accountService, PaymentService paymentService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
         this.visitService = visitService;
+        this.accountService = accountService;
+        this.paymentService = paymentService;
     }
 
     @Override
@@ -43,6 +50,33 @@ public class DataLoader implements CommandLineRunner {
         cat.setName("Cat");
         PetType savedCatPetType = petTypeService.save(cat);
 
+        PetType rabbit = new PetType();
+        rabbit.setName("Rabbit");
+        PetType savedRabbitPetType = petTypeService.save(rabbit);
+
+        PetType Hamster = new PetType();
+        Hamster.setName("Hamster");
+        PetType savedHamsterPetType = petTypeService.save(Hamster);
+        
+        PetType lizard = new PetType();
+        lizard.setName("Lizard");
+        PetType savedlizardPetType = petTypeService.save(lizard);
+
+        PetType guinea_pig = new PetType();
+        guinea_pig.setName("Guinea Pig");
+        PetType savedGuinea_pigPetType = petTypeService.save(guinea_pig);
+
+        PetType degus = new PetType();
+        degus.setName("Degu");
+        PetType savedDegusPetType = petTypeService.save(degus);
+
+        PetType Chinchilla = new PetType();
+        Chinchilla.setName("Chinchilla");
+        PetType savedChichillaPetType = petTypeService.save(Chinchilla);
+
+
+
+
         Speciality radiology = new Speciality();
         radiology.setDescription("Radiology");
         Speciality savedRadiology = specialityService.save(radiology);
@@ -55,12 +89,15 @@ public class DataLoader implements CommandLineRunner {
         dentistry.setDescription("Dentistry");
         Speciality savedDentistry = specialityService.save(dentistry);
 
+
+
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
         owner1.setLastName("Weston");
         owner1.setAddress("123 Brickerel");
         owner1.setCity("Miami");
         owner1.setTelephone("1231231234");
+
 
         Pet mikesPet = new Pet();
         mikesPet.setPetType(savedDogPetType);
@@ -69,7 +106,16 @@ public class DataLoader implements CommandLineRunner {
         mikesPet.setName("Rosco");
         owner1.getPets().add(mikesPet);
 
+
+        Account mikesAccount = new Account();
+        mikesAccount.setOwner(owner1);
+        mikesAccount.setPaymentType("Direct Debit");
+        owner1.getAccounts().add(mikesAccount);
+
         ownerService.save(owner1);
+        accountService.save(mikesAccount);
+
+
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");

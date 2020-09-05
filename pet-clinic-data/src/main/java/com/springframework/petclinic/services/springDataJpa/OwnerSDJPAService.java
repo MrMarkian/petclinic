@@ -1,6 +1,7 @@
 package com.springframework.petclinic.services.springDataJpa;
 
 import com.springframework.petclinic.model.Owner;
+import com.springframework.petclinic.repositories.AccountRepository;
 import com.springframework.petclinic.repositories.OwnerRepository;
 import com.springframework.petclinic.repositories.PetRepository;
 import com.springframework.petclinic.repositories.PetTypeRepository;
@@ -21,10 +22,13 @@ public class OwnerSDJPAService implements OwnerService {
     private final PetRepository petRepository;
     private final PetTypeRepository petTypeRepository;
 
-    public OwnerSDJPAService(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository) {
+    private final AccountRepository accountRepository;
+
+    public OwnerSDJPAService(OwnerRepository ownerRepository, PetRepository petRepository, PetTypeRepository petTypeRepository, AccountRepository accountRepository) {
         this.ownerRepository = ownerRepository;
         this.petRepository = petRepository;
         this.petTypeRepository = petTypeRepository;
+        this.accountRepository = accountRepository;
     }
 
 
