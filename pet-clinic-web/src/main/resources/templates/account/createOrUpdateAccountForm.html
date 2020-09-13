@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<h2>Account View</h2>
+
+<form th:object="${account}" class="form-horizontal" method="post">
+    <input type="hidden" name="accountId" th:value="*{id}" />
+
+    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" >
+        <p>Please correct the Errors Below</p>
+
+        <ul>
+            <li th:each="err : ${#fields.errors('paymentType')}" th:text="'Description- ' + ${err}"/>
+
+        </ul>
+    </div>
+
+    <div class="form-group has-feedback">
+        <div class="form-group col-md-3">
+            <label >Account Owner:</label>
+
+                <a th:text="${account.getOwner().firstName} + ' ' + ${account.getOwner().lastName}" />
+
+        </div>
+        <label >Creation Date:</label>
+
+        <b th:text="${account.creationDate}" />
+        <p></p>
+        Account Active?:
+        <input
+                type="checkbox"
+                name="active"
+                th:checked="${account.active}"/>
+
+    </div>
+
+    <input th:replace="~{fragments/inputField :: input ('Account Type', 'paymentType', 'text')}"  />
+
+
+
+    </div>
+    <button th:with="text=${account['new']} ? 'Add Account' : 'Update Account'"
+            class="btn btn-default" type="submit" style="margin-left: fill" th:text="${text}">Add Account</button>
+</form>
+
+</body>
+</html>

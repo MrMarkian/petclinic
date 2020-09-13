@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+
+<form th:object="${payment}" class="form-horizontal" method="post">
+    <input type="hidden" name="paymentId" th:value="${id}" />
+<div class="form-group has-feedback">
+
+    <label th:class="${#fields.hasErrors('amount')} ? 'alert-danger' : 'dark' ">
+        Payment amount:
+        <input size="60" type="text" class="form-control" th:field="*{amount}"/></label>
+
+    <label th:class="${#fields.hasErrors('paymentDate')} ? 'alert-danger' : 'dark' ">
+        Payment Date:
+        <input size="60" type="text" class="form-control" th:field="*{paymentDate}"/></label>
+
+    <label th:class="${#fields.hasErrors('inputDate')} ? 'alert-danger' : 'dark' ">
+        Input Date:
+        <input size="60" type="text" class="form-control" th:field="*{inputDate}"/></label>
+
+    <label th:class="${#fields.hasErrors('comment')} ? 'alert-danger' : 'dark' ">
+        Comment:
+        <input size="60" type="text" class="form-control" th:field="*{comment}"/></label>
+
+
+
+<div>
+        <button th:with="text=${payment['new']} ? 'Add Payment' : 'Update Payment'" class="btn btn-default" type="submit">Add Payment</button>
+</div>
+
+</form>
+
+<br />
+<b>Previous Payments</b>
+<table class="table table-striped">
+    <tr>
+        <th>Date</th>
+        <th>Description</th>
+    </tr>
+
+</table>
+
+
+
+</body>
+</html>

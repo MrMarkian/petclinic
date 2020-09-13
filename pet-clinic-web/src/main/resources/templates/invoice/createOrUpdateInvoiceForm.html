@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<form th:object="${invoice}" class="form-horizontal" method="post">
+    <input type="hidden" name="paymentId" th:value="${id}" />
+    <div class="form-group has-feedback">
+
+        <span th:text="${invoice.account?.creationDate + ' - ' + invoice.account.owner?.firstName + ' ' + invoice.account.owner?.lastName}" />
+        <p></p>
+        <label th:class="${#fields.hasErrors('total')} ? 'alert-danger' : 'dark' ">
+            Total:
+            <input size="60" type="text" class="form-control" th:field="*{total}"/></label>
+
+
+
+
+
+        <div>
+            <button th:with="text=${invoice['new']} ? 'Add Invoice' : 'Update Invoice'" class="btn btn-default" type="submit">Add Invoice</button>
+        </div>
+
+</form>
+
+
+
+</body>
+</html>

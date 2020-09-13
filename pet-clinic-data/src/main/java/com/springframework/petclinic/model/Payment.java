@@ -1,11 +1,13 @@
 package com.springframework.petclinic.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Getter
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 public class Payment extends BaseEntity {
 
     @Column(name = "amount")
+    @NotNull
     private Float amount;
     @Column(name = "paymentdate")
     private LocalDate paymentDate;

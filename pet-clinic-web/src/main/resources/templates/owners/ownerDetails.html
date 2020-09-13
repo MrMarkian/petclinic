@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org"
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 <head>
     <meta charset="UTF-8"/>
@@ -7,50 +7,138 @@
 </head>
 <body>
 
+<h2>Owner Details</h2>
+<a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-link">Edit Owner</a>
+
+
 <table class="table table-striped" th:object="${owner}">
+
     <tr>
         <th>Name</th>
         <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
     </tr>
     <tr>
         <th>Address</th>
-        <td th:text="*{address}" /></td>
+        <td th:text="*{address}"></td>
     </tr>
     <tr>
         <th>City</th>
-        <td th:text="*{city}" /></td>
+        <td th:text="*{city}"></td>
     </tr>
     <tr>
         <th>Telephone</th>
-        <td th:text="*{telephone}" /></td>
+        <td th:text="*{telephone}"></td>
     </tr>
+
+    <tr>
+        <th>Accounts Total:</th>
+        <td th:text="*{getTotalBalances()}"></td>
+    </tr>
+
+
+
 </table>
 
-<a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-default">Edit
-    Owner</a>
-<a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-default">Add
-    New Pet</a>
+<p>
+</p>
+<p></p>
+<h2>Accounts</h2>
+    <a th:href="@{{id}/account/new(id=${owner.id})}" class="btn btn-link" >Add New Account</a>
+<p></p>
+<table class="table table-condensed" th:object="${owner}" style="empty-cells: show">
+
+    <tr th:each="account : ${owner.accounts}">
+
+        <td>
+            <dl class="dl-horizontal">
+                <dt>Balance:</dt>
+                <dd th:text="${account.getBalance()}" ></dd>
+
+                <dt>Total Payments:</dt>
+                <dd th:text="${account.getPaymentTotal()}" ></dd>
+
+                <dt>Total Invoice:</dt>
+                <dd th:text="${account.getInvoiceTotal()}" ></dd>
+
+                <dt>Account Type:</dt>
+                <dd th:text="${account.paymentType}"></dd>
+
+                <dt th:if="${account.paymentType eq 'Credit Account'}">Credit Limit:</dt>
+                <dd th:if="${account.paymentType eq 'Credit Account'}" th:text="${account.getCreditLimit()}" ></dd>
+                <dt th:if="${account.paymentType eq 'Direct Debit'}">Direct Debit ID:</dt>
+                <dd th:if="${account.paymentType eq 'Direct Debit'}" th:text="${account.directDebitId}" ></dd>
+
+
+                <dt>Due Date:</dt>
+                <dd th:text="${account.paymentDueDate}" ></dd>
+                <dt>Account Active:</dt>
+                <dd th:text="${account.active} ? 'Active' : 'Inactive'" ></dd>
+            </dl>
+            <a th:href="@{{ownerId}/account/{accountId}/edit(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Edit Account</a>
+            <a th:href="@{{ownerId}/account/{accountId}/payments/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Add Payment</a>
+            <a th:href="@{{ownerId}/account/{accountId}/invoice/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">New Invoice</a>
+        </td>
+        <td >
+            <table class="table-condensed">
+                <thead>
+                <tr>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Edit</th>
+                </tr>
+                </thead>
+                <tr th:each="payment : ${account.paymentList}">
+                    <td th:text="${#temporals.format(payment.paymentDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${payment?.amount}"></td>
+                    <td th:text="${payment?.comment}"></td>
+<!--                    <a th:href="@{{ownerId}/account/{accountId}/payments/{paymentId}/edit(ownerId=${owner.id},accountId=${account.id},paymentId=${payment.id}" class="btn btn-link">Edit Payment</a>-->
+                    <td><a th:href="@{${owner.id} + '/account/' + ${account.id} + '/payments/' + ${payment.id} + '/edit'}">Edit</a></td>
+                </tr>
+
+            </table>
+        </td>
+        <td>
+            <table class="table-condensed">
+                <thead>
+                <tr>
+                    <th>Invoice Date</th>
+                    <th>Amount</th>
+
+                </tr>
+                </thead>
+                <tr th:each="invoice : ${account.invoiceList}">
+                    <td th:text="${#temporals.format(invoice.generatedDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${invoice?.total}"></td>
+
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+
+</table>
 
 <br />
 <br />
 <br />
-<h2>Pets and Visits</h2>
+<h2>Pets and Visits <a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-link" style="margin-left: 30px">Add New Pet</a></h2>
 
 <table class="table table-striped">
 
     <tr th:each="pet : ${owner.pets}">
-        <td valign="top">
+        <td>
             <dl class="dl-horizontal">
                 <dt>Name</dt>
-                <dd th:text="${pet.name}" /></dd>
+                <dd th:text="${pet.name}" ></dd>
                 <dt>Birth Date</dt>
                 <dd
-                        th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}" /></dd>
+                        th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
                 <dt>Type</dt>
-                <dd th:text="${pet.petType}" /></dd>
+                <dd th:text="${pet.petType}" ></dd>
             </dl>
         </td>
-        <td valign="top">
+        <td>
             <table class="table-condensed">
                 <thead>
                 <tr>

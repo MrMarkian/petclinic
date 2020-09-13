@@ -31,6 +31,7 @@ public class OwnerController {
 
  @RequestMapping("/index")
     public String listOwners(Model model) {
+
      model.addAttribute("owners", ownerService.findAll());
      return "owners/index";
  }
@@ -104,5 +105,11 @@ public class OwnerController {
         }
     }
 
+
+    @GetMapping("/{ownerId}/delete")
+    public String deleteOwnerById(@PathVariable("ownerId") Long ownerId){
+        ownerService.deleteById(ownerId);
+        return "redirect:/owners/index";
+    }
 
 }

@@ -20,8 +20,10 @@ public class DataLoader implements CommandLineRunner {
 
     private final PaymentService paymentService;
 
+    private final InvoiceService invoiceService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService, AccountService accountService, PaymentService paymentService) {
+
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService, AccountService accountService, PaymentService paymentService, InvoiceService invoiceService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
@@ -29,6 +31,7 @@ public class DataLoader implements CommandLineRunner {
         this.visitService = visitService;
         this.accountService = accountService;
         this.paymentService = paymentService;
+        this.invoiceService = invoiceService;
     }
 
     @Override
@@ -108,20 +111,49 @@ public class DataLoader implements CommandLineRunner {
 
 
         Account mikesAccount = new Account();
+        Payment payment1 = new Payment();
+
+        Invoice testInvoice = new Invoice();
+
+        testInvoice.setTotal(15F);
+        testInvoice.setAccount(mikesAccount);
+        Invoice testInvoice2 = new Invoice();
+
+        testInvoice2.setTotal(55F);
+
+        testInvoice2.setAccount(mikesAccount);
+        mikesAccount.getInvoiceList().add(testInvoice);
+        mikesAccount.getInvoiceList().add(testInvoice2);
+
+
         mikesAccount.setOwner(owner1);
-        mikesAccount.setPaymentType("Direct Debit");
+        mikesAccount.setPaymentType("Invoice Account");
         owner1.getAccounts().add(mikesAccount);
+        Account mikesCreditAccount = new Account();
+        mikesCreditAccount.setOwner(owner1);
+        mikesCreditAccount.setActive(true);
+        mikesCreditAccount.setPaymentType("Credit Account");
+        owner1.getAccounts().add(mikesCreditAccount);
+
+        payment1.setAccount(mikesAccount);
+        payment1.setInputDate(LocalDate.now());
+        payment1.setAmount(199.99F);
+        payment1.setPaymentDate(LocalDate.now());
+        payment1.setComment("First Test Payment !");
+
+
 
         ownerService.save(owner1);
         accountService.save(mikesAccount);
-
-
+        paymentService.save(payment1);
+        invoiceService.save(testInvoice);
+        invoiceService.save(testInvoice2);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
-        owner2.setAddress("123 Brickerel");
-        owner2.setCity("Miami");
+        owner2.setAddress("38 Penny Lane");
+        owner2.setCity("Michigan");
         owner2.setTelephone("1231231234");
 
 
@@ -186,5 +218,9 @@ public class DataLoader implements CommandLineRunner {
         System.out.println("Loaded Vets....");
         System.out.println(vet2.getFirstName());
 
+        System.out.println("--- DEBUG ---");
+
+        System.out.println(mikesAccount.getBalance());
+        System.out.println(mikesAccount.getPaymentTotal());
     }
 }
