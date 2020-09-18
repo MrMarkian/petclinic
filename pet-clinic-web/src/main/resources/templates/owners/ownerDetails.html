@@ -57,6 +57,9 @@
                 <dt>Balance:</dt>
                 <dd th:text="${account.getBalance()}" ></dd>
 
+                <dt><b>Invoices Total: </b></dt>
+                <dd th:text="${account.getInvoiceTotal()}" ></dd>
+
                 <dt>Account Type:</dt>
                 <dd th:text="${account.paymentType}"></dd>
 
@@ -70,15 +73,16 @@
                 <dd th:text="${account.paymentDueDate}" ></dd>
                 <dt>Account Active:</dt>
                 <dd th:text="${account.active} ? 'Active' : 'Inactive'" ></dd>
+
             </dl>
             <a th:href="@{{ownerId}/account/{accountId}/edit(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Edit Account</a>
             <a th:href="@{{ownerId}/account/{accountId}/payments/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Add Payment</a>
             <a th:href="@{{ownerId}/account/{accountId}/invoice/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">New Invoice</a>
            </td>
         <td >
-            <table class="table table-responsive table-bordered" style="empty-cells: show; align-content: center">
+            <table class="table table-responsive table-bordered table-condensed" style="empty-cells: show; align-content: center">
                 <thead>
-                <tr><b>Payments Total: </b><span th:text="${account.getPaymentTotal()}"></span> </tr>
+                <tr></tr>
                 <tr></tr>
                 <tr>
                     <th>Payment Date</th>
@@ -98,18 +102,21 @@
             </table>
         </td>
         <td>
-            <table class="table table-bordered" style="empty-cells: show">
+            <table class="table table-bordered table-condensed" style="empty-cells: show">
 
                 <thead>
-                <tr><b>Invoices Total: </b> <span th:text="${account.getInvoiceTotal()}"></span>  </tr>
+
                 <tr>
                     <th>Invoice Date</th>
+                    <th>Due Date</th>
                     <th>Amount</th>
+
 
                 </tr>
                 </thead>
                 <tr th:each="invoice : ${account.invoiceList}">
                     <td th:text="${#temporals.format(invoice.generatedDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#temporals.format(invoice.dueDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${invoice?.total}"></td>
 
                 </tr>

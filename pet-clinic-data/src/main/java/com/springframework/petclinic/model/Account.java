@@ -29,6 +29,7 @@ public class Account extends BaseEntity{
         this.paymentType = paymentType;
         this.creditLimit = creditLimit;
         this.active = true;
+        this.accountIDCode = owner.getId().toString() + "/" + id.toString();
     }
 
     @ManyToOne
@@ -58,7 +59,7 @@ public class Account extends BaseEntity{
     private LocalDate creationDate = LocalDate.now();
 
     @Column(name = "paymentDueDate")
-    private LocalDate paymentDueDate;
+    private Integer paymentDueDate;
 
 
     @Column(name = "directDebitId")
@@ -67,6 +68,8 @@ public class Account extends BaseEntity{
     @Column(name = "active")
     private Boolean active;
 
+    @Column(name = "accountIDCode")
+    private String accountIDCode;
 
     //todo:make a drop down list in view
     @Column(name = "vatLevel")
@@ -113,6 +116,10 @@ public class Account extends BaseEntity{
 
     public String getCreditLimit(){
        return creditLimit.toString();
+    }
+
+    public void generateAccountCode(){
+        this.accountIDCode = this.owner.getId().toString() + "/" + this.getId().toString();
     }
 
 }

@@ -11,23 +11,20 @@
     <input type="hidden" name="paymentId" th:value="${id}" />
     <div class="form-group has-feedback">
 
-        <span th:text="${invoice.account?.creationDate + ' - ' + invoice.account.owner?.firstName + ' ' + invoice.account.owner?.lastName}" />
+        <span th:text="${invoice.account?.creationDate + ' - ' + invoice.account.owner?.firstName + ' ' + invoice.account.owner?.lastName}" ></span>
         <p></p>
 <!--        <label th:class="${#fields.hasErrors('total')} ? 'alert-danger' : 'dark' ">
             Total:
             <input size="60" type="text" class="form-control" th:field="*{total}"/></label>-->
-
-        <input
-                th:replace="~{fragments/inputField :: input ('Total:', 'total', 'float')}" />
-
-
-
-
+        <b th:text="'Due Date:' +${invoice.dueDate}"></b>
+        <label>
+            <input th:replace="~{fragments/inputField :: input ('Total:', 'total', 'float')}" >
+        </label>
 
         <div>
             <button th:with="text=${invoice['new']} ? 'Add Invoice' : 'Update Invoice'" class="btn btn-default" type="submit">Add Invoice</button>
         </div>
-
+    </div>
 </form>
 
 

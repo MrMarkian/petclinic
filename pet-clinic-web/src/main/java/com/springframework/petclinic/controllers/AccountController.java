@@ -49,6 +49,7 @@ public class AccountController {
         account.setActive(true);
         owner.getAccounts().add(account);
         account.setOwner(owner);
+
         model.addAttribute("account", account);
         return VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
     }
@@ -73,6 +74,9 @@ public class AccountController {
             owner.getAccounts().add(account);
             account.setOwner(owner);
             account.setActive(true);
+
+            accountService.save(account);
+            account.generateAccountCode(); //todo: this shouldnt be here.. should be in the constructor. fix it!
             accountService.save(account);
             return "redirect:/owners/{ownerId}";
         }
@@ -90,6 +94,7 @@ public class AccountController {
         if(result.hasErrors()){
             return  VIEWS_ACCOUNT_CREATE_OR_UPDATE_FORM;
         } else {
+            log.error("Payment Due Date:"+ account.getPaymentDueDate().toString());
             account.setId(accountId);
             account.setOwner(owner);
 

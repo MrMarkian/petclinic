@@ -49,6 +49,7 @@ public class InvoiceController {
         Invoice invoice = new Invoice();
         account.getInvoiceList().add(invoice);
         invoice.setAccount(account);
+        invoice.setDueDate(invoice.calculateNextDuePayment());
         return invoice;
 
     }
@@ -62,11 +63,9 @@ public class InvoiceController {
     @PostMapping("/new")
     public String processCreationForm(Account account, @Valid Invoice invoice, BindingResult result, Model model)
     {
-
         account.getInvoiceList().add(invoice);
         invoice.setAccount(account);
-        invoice.setDueDate(account.getPaymentDueDate());
-        invoiceService.save(invoice);
+            invoiceService.save(invoice);
         accountService.save(account);
         return "redirect:/owners/{ownerId}";
     }

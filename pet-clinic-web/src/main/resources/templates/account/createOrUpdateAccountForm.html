@@ -33,10 +33,12 @@
             <span th:text="${account.getPaymentCount()}"></span>
             <label >Vat Level:</label>
             <span th:text="${account.vatLevel}"></span>
+            <label >Account Reference Code:</label>
+            <span th:text="${account.accountIDCode}"></span>
         </div>
         <label >Creation Date:</label>
 
-        <b th:text="${account.creationDate}" <p></p>
+        <b th:text="${account.creationDate}"></b> <p></p>
 
         Account Active?:
         <input
@@ -46,8 +48,8 @@
 
     </div>
     <div>
-
         <input th:replace="~{fragments/inputField :: input ('Account Type', 'paymentType', 'text-required')}" th:width="100px" />
+        <input required th:replace="~{fragments/inputField :: input ('Payment Due Date:', 'paymentDueDate', 'dayinmonth')}" th:width="100px" />
         <button th:with="text=${account['new']} ? 'Add Account' : 'Update Account'"
                 class="btn btn-default" type="submit" style="margin-left: fill" th:text="${text}">Add Account</button>
     </div>
