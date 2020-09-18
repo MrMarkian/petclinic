@@ -13,9 +13,12 @@
 
         <span th:text="${invoice.account?.creationDate + ' - ' + invoice.account.owner?.firstName + ' ' + invoice.account.owner?.lastName}" />
         <p></p>
-        <label th:class="${#fields.hasErrors('total')} ? 'alert-danger' : 'dark' ">
+<!--        <label th:class="${#fields.hasErrors('total')} ? 'alert-danger' : 'dark' ">
             Total:
-            <input size="60" type="text" class="form-control" th:field="*{total}"/></label>
+            <input size="60" type="text" class="form-control" th:field="*{total}"/></label>-->
+
+        <input
+                th:replace="~{fragments/inputField :: input ('Total:', 'total', 'float')}" />
 
 
 

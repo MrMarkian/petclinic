@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+
 @Table(name = "visits")
 public class Visit extends BaseEntity {
 
@@ -23,6 +24,10 @@ public class Visit extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "pet_id")
     private Pet pet;
+
+    @ManyToOne
+    @JoinColumn(name = "vet_id")
+    private Vet vet;
 
 
 }

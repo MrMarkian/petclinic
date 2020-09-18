@@ -15,22 +15,29 @@
         <p>Please correct the Errors Below</p>
 
         <ul>
-            <li th:each="err : ${#fields.errors('paymentType')}" th:text="'Description- ' + ${err}"/>
+            <li th:each="err : ${#fields.errors('*')}" th:text="'Description- ' + ${err}"></li>
 
         </ul>
     </div>
 
-    <div class="form-group has-feedback">
+    <div class="form-group has-feedback flexContent">
         <div class="form-group col-md-3">
             <label >Account Owner:</label>
 
-                <a th:text="${account.getOwner().firstName} + ' ' + ${account.getOwner().lastName}" />
-
+            <b th:text="${account.getOwner().firstName} + ' ' + ${account.getOwner().lastName}"></b>
+            <div>
+            <label >Account Balance:</label>
+            <span th:text="${account.getBalance()}"></span>
+            </div>
+            <label >Payment Count:</label>
+            <span th:text="${account.getPaymentCount()}"></span>
+            <label >Vat Level:</label>
+            <span th:text="${account.vatLevel}"></span>
         </div>
         <label >Creation Date:</label>
 
-        <b th:text="${account.creationDate}" />
-        <p></p>
+        <b th:text="${account.creationDate}" <p></p>
+
         Account Active?:
         <input
                 type="checkbox"
@@ -38,14 +45,14 @@
                 th:checked="${account.active}"/>
 
     </div>
+    <div>
 
-    <input th:replace="~{fragments/inputField :: input ('Account Type', 'paymentType', 'text')}"  />
-
-
-
+        <input th:replace="~{fragments/inputField :: input ('Account Type', 'paymentType', 'text-required')}" th:width="100px" />
+        <button th:with="text=${account['new']} ? 'Add Account' : 'Update Account'"
+                class="btn btn-default" type="submit" style="margin-left: fill" th:text="${text}">Add Account</button>
     </div>
-    <button th:with="text=${account['new']} ? 'Add Account' : 'Update Account'"
-            class="btn btn-default" type="submit" style="margin-left: fill" th:text="${text}">Add Account</button>
+    </div>
+
 </form>
 
 </body>

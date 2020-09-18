@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<head>
+
+    <title>Owner Details</title>
+</head>
+<body>
+<h2>Vet Details<a th:href="@{{id}/edit(id=${vet.id})}" class="btn btn-link">Edit Vet Details</a></h2>
+<table class="table tableSubHeadingColor" th:object="${vet}">
+
+    <tr>
+        <th>Name</th>
+        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td th:text="*{address}"></td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td th:text="*{city}"></td>
+    </tr>
+    <tr>
+        <th>Telephone</th>
+        <td th:text="*{telephone}"></td>
+    </tr>
+
+    <tr>
+        <th>Visits Total:</th>
+        <td th:text="*{visitSet.size()}"></td>
+    </tr>
+
+
+
+</table>
+
+</body>
+</html>

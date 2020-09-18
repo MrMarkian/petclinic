@@ -65,7 +65,7 @@ public class InvoiceController {
 
         account.getInvoiceList().add(invoice);
         invoice.setAccount(account);
-
+        invoice.setDueDate(account.getPaymentDueDate());
         invoiceService.save(invoice);
         accountService.save(account);
         return "redirect:/owners/{ownerId}";

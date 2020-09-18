@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body},'owner')}">
+      th:replace="~{fragments/layout :: layout (~{::body},'vet')}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h2>Owner</h2>
-<form th:object="${owner}" class="form-horizontal" id="add-payment-form" method="post">
+<h2>Vet</h2>
+<form th:object="${vet}" class="form-horizontal" id="add-payment-form" method="post">
     <div class="form-group has-feedback">
         <input
                 th:replace="~{fragments/inputField :: input ('First Name', 'firstName', 'text-required')}" />
@@ -23,11 +23,10 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button
-                    th:with="text=${owner['new']} ? 'Add Owner' : 'Update Owner'"
+                    th:with="text=${vet['new']} ? 'Add Vet' : 'Update Vet'"
                     class="btn btn-default" type="submit" th:text="${text}">Add
-                Owner</button>
+                Vet</button>
         </div>
     </div>
-</form>
 </body>
 </html>

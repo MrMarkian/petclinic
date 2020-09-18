@@ -23,21 +23,28 @@
     </tr>
     </thead>
     <tr>
-        <td th:text="${pet.name}" /></td>
-        <td
-                th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}" /></td>
-        <td th:text="${pet.petType}" /></td>
-        <td
-                th:text="${pet.owner?.firstName + ' ' + pet.owner?.lastName}" /></td>
+        <td th:text="${pet.name}" >Pet Name</td>
+        <td th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}" ></td>
+        <td th:text="${pet.petType}" ></td>
+        <td th:text="${pet.owner?.firstName + ' ' + pet.owner?.lastName}" ></td>
     </tr>
 </table>
 
 <form th:object="${visit}" class="form-horizontal" method="post">
+    <input type="hidden" name="id" th:value="*{id}" />
     <div class="form-group has-feedback">
-        <input
-                th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}"  />
-        <input
-                th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}" />
+        <input required th:replace="~{fragments/inputField :: input ('Date', 'date', 'date')}"  />
+        <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text-required')}" />
+       <!-- <input th:replace="~{fragments/selectField :: select ('Veternarian', 'vet.firstName',${vets})}" />-->
+    <label class="col-sm-2 control-label">Vetinarian: </label>
+   <select th:field="*{vet}">
+            <option th:each="vet : ${vets}"
+                    th:text="${vet.firstName + ' ' + vet.lastName}"
+                    th:value="${vet.id}">
+            </option>
+        </select>
+
+
     </div>
 
     <div class="form-group">
@@ -56,8 +63,8 @@
         <th>Description</th>
     </tr>
     <tr th:if="${!visit['new']}" th:each="visit : ${pet.visitSet}">
-        <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}" /></td>
-        <td th:text=" ${visit.description}" /></td>
+        <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
+        <td th:text=" ${visit.description}"> </td>
     </tr>
 </table>
 

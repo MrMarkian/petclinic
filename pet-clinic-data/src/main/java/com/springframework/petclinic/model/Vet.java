@@ -1,9 +1,6 @@
 package com.springframework.petclinic.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "vets")
 public class Vet extends Person{
 
@@ -22,7 +20,16 @@ public class Vet extends Person{
     @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"))
     private Set<Speciality> specialitySet = new HashSet<>();
 
+    @OneToMany
+    @JoinColumn(name = "visit_id")
+    private Set<Visit> visitSet = new HashSet<>();
 
+    @Column(name = "address")
+    private String address;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "telephone")
+    private String telephone;
 
 }
 

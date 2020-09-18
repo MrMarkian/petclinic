@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class Invoice extends BaseEntity {
     private Float total;
     private Float subtotal;
     private LocalDate generatedDate = LocalDate.now();
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "account_id")

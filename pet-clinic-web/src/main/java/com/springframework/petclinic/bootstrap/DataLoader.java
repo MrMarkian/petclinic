@@ -197,6 +197,9 @@ public class DataLoader implements CommandLineRunner {
         Vet vet1 = new Vet();
         vet1.setFirstName("Sam");
         vet1.setLastName("Axe");
+        vet1.setAddress("123 Bakersville Street");
+        vet1.setCity("London");
+        vet1.setTelephone("0112939377");
         vet1.getSpecialitySet().add(savedRadiology);
 
         vetService.save(vet1);
@@ -204,6 +207,9 @@ public class DataLoader implements CommandLineRunner {
         Vet vet2 = new Vet();
         vet2.setFirstName("Jessie");
         vet2.setLastName("Porter");
+        vet2.setAddress("99 Ballon Street");
+        vet2.setCity("Sussex");
+        vet2.setTelephone("0227336633");
         vet2.getSpecialitySet().add(savedSurgery);
         vet2.getSpecialitySet().add(savedDentistry);
         vetService.save(vet2);
@@ -219,6 +225,12 @@ public class DataLoader implements CommandLineRunner {
         System.out.println(vet2.getFirstName());
 
         System.out.println("--- DEBUG ---");
+
+        catVisit.setVet(vet1);
+        vet1.getVisitSet().add(catVisit);
+
+        vetService.save(vet1);
+        visitService.save(catVisit);
 
         System.out.println(mikesAccount.getBalance());
         System.out.println(mikesAccount.getPaymentTotal());

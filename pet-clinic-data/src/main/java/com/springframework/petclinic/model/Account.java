@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,9 +36,11 @@ public class Account extends BaseEntity{
     private Owner owner;
 
     @OneToMany(mappedBy = "account")
+    @OrderBy("paymentDate DESC")
     private Set<Payment> paymentList = new HashSet<>();
 
     @OneToMany(mappedBy = "account")
+    @OrderBy("generatedDate desc")
     private Set<Invoice> invoiceList = new HashSet<>();
 
     @Column(name = "paymentType")
@@ -45,6 +48,8 @@ public class Account extends BaseEntity{
     @NotBlank
     @NotEmpty
     private String paymentType;
+//todo:make a dropdown in veiw
+
 
     @Column(name = "creditLimit")
     private Float creditLimit =0F;
@@ -63,9 +68,12 @@ public class Account extends BaseEntity{
     private Boolean active;
 
 
+    //todo:make a drop down list in view
+    @Column(name = "vatLevel")
+    private float vatLevel;
+
 
     public Float getBalance(){
-
 
         Float paymentTotal = 0F;
         Float invoiceTotal = 0F;
@@ -77,8 +85,6 @@ public class Account extends BaseEntity{
         for(Invoice i : invoiceList){
             invoiceTotal += i.getTotal();
         }
-
-
 
         return invoiceTotal - paymentTotal;
 
@@ -90,15 +96,19 @@ public class Account extends BaseEntity{
             paymentTotal += p.getAmount();
         }
 
-        return paymentTotal;
+        return Float.valueOf(new DecimalFormat("0.00").format(paymentTotal));
     }
 
-    public float getInvoiceTotal(){
+    public Long getPaymentCount(){
+        return Long.valueOf(new DecimalFormat("0").format( paymentList.size()));
+    }
+
+    public Float getInvoiceTotal(){
         Float invoiceTotal = 0F;
         for(Invoice i : invoiceList){
             invoiceTotal += i.getTotal();
         }
-        return invoiceTotal;
+        return Float.valueOf(new DecimalFormat("0.00").format(invoiceTotal));
     }
 
     public String getCreditLimit(){

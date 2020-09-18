@@ -3,6 +3,7 @@ package com.springframework.petclinic.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,9 +37,11 @@ public class Owner extends Person{
     private String telephone;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OrderBy("id ASC")
     private Set<Pet> pets = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+    @OrderBy("id ASC")
     private Set<Account> accounts = new HashSet<>();
 
     public Pet getPet(String name){

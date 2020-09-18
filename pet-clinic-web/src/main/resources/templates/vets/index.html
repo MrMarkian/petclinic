@@ -12,16 +12,22 @@
     <tr>
         <th>Name</th>
         <th>Specialties</th>
+        <th>View</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="vet : ${vets}">
         <td th:text="${vet.firstName + ' ' + vet.lastName}"></td>
         <td><span th:each="specialty : ${vet.getSpecialitySet()}"
-                  th:text="${specialty.description + '  '}" /> <span
+                  th:text="${specialty.description + '  '}" ></span>
+            <span
                 th:if="${vet?.getSpecialitySet()?.size() == 0}">none</span></td>
+        <td><a th:href="@{{id}(id=${vet.id})}" class="btn btn-link">View</a></td>
     </tr>
+
     </tbody>
+
 </table>
+<a class="btn btn-default" th:href="@{/vets/new}">Add Vet</a>
 </body>
 </html>

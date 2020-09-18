@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.beans.PropertyEditorSupport;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class PaymentController {
             return "payments/createOrUpdatePaymentForm";
 
         } else {
-            paymentService.save(payment);
+             paymentService.save(payment);
             return "redirect:/owners/{ownerId}";
         }
     }

@@ -4,14 +4,17 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Owner Details</title>
+
+
+
 </head>
 <body>
 
-<h2>Owner Details</h2>
-<a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-link">Edit Owner</a>
+<h2>Owner Details<a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-link">Edit Owner</a></h2>
 
 
-<table class="table table-striped" th:object="${owner}">
+
+<table class="table tableSubHeadingColor" th:object="${owner}">
 
     <tr>
         <th>Name</th>
@@ -38,12 +41,12 @@
 
 
 </table>
-
+<hr class="rounded" style="border-top: 8px solid #bbb; border-radius: 5px">
 <p>
 </p>
 <p></p>
-<h2>Accounts</h2>
-    <a th:href="@{{id}/account/new(id=${owner.id})}" class="btn btn-link" >Add New Account</a>
+<h2>Accounts<a th:href="@{{id}/account/new(id=${owner.id})}" class="btn btn-link" >Add New Account</a></h2>
+
 <p></p>
 <table class="table table-condensed" th:object="${owner}" style="empty-cells: show">
 
@@ -53,12 +56,6 @@
             <dl class="dl-horizontal">
                 <dt>Balance:</dt>
                 <dd th:text="${account.getBalance()}" ></dd>
-
-                <dt>Total Payments:</dt>
-                <dd th:text="${account.getPaymentTotal()}" ></dd>
-
-                <dt>Total Invoice:</dt>
-                <dd th:text="${account.getInvoiceTotal()}" ></dd>
 
                 <dt>Account Type:</dt>
                 <dd th:text="${account.paymentType}"></dd>
@@ -77,10 +74,12 @@
             <a th:href="@{{ownerId}/account/{accountId}/edit(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Edit Account</a>
             <a th:href="@{{ownerId}/account/{accountId}/payments/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">Add Payment</a>
             <a th:href="@{{ownerId}/account/{accountId}/invoice/new(ownerId=${owner.id},accountId=${account.id})}" class="btn btn-default">New Invoice</a>
-        </td>
+           </td>
         <td >
-            <table class="table-condensed">
+            <table class="table table-responsive table-bordered" style="empty-cells: show; align-content: center">
                 <thead>
+                <tr><b>Payments Total: </b><span th:text="${account.getPaymentTotal()}"></span> </tr>
+                <tr></tr>
                 <tr>
                     <th>Payment Date</th>
                     <th>Amount</th>
@@ -99,8 +98,10 @@
             </table>
         </td>
         <td>
-            <table class="table-condensed">
+            <table class="table table-bordered" style="empty-cells: show">
+
                 <thead>
+                <tr><b>Invoices Total: </b> <span th:text="${account.getInvoiceTotal()}"></span>  </tr>
                 <tr>
                     <th>Invoice Date</th>
                     <th>Amount</th>
@@ -119,8 +120,10 @@
 
 </table>
 
-<br />
-<br />
+<hr class="rounded" style="border-top: 8px solid #bbb; border-radius: 5px">
+
+
+
 <br />
 <h2>Pets and Visits <a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-link" style="margin-left: 30px">Add New Pet</a></h2>
 
@@ -136,28 +139,28 @@
                         th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
                 <dt>Type</dt>
                 <dd th:text="${pet.petType}" ></dd>
+                <dt></dt><dd></dd>
+                <dt><a th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Edit Pet</a></dt>
             </dl>
         </td>
         <td>
-            <table class="table-condensed">
+            <table class="table-condensed table-hover table-striped table-responsive">
                 <thead>
+                <a th:href="@{{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id},petId=${pet.id})}">Add Visit</a>
                 <tr>
                     <th>Visit Date</th>
                     <th>Description</th>
+                    <th>Veterinarian</th>
+                    <th>Edit</th>
                 </tr>
                 </thead>
                 <tr th:each="visit : ${pet.visitSet}">
                     <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
                     <td th:text="${visit?.description}"></td>
+                    <td th:text="${visit?.vet.firstName +' ' + visit?.vet.lastName}"></td>
+                    <td><a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/edit(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Edit</a></td>
                 </tr>
-                <tr>
-                    <td><a
-                            th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Edit
-                        Pet</a></td>
-                    <td><a
-                            th:href="@{{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id},petId=${pet.id})}">Add
-                        Visit</a></td>
-                </tr>
+
             </table>
         </td>
     </tr>
