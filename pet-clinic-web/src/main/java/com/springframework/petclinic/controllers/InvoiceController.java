@@ -50,6 +50,7 @@ public class InvoiceController {
         account.getInvoiceList().add(invoice);
         invoice.setAccount(account);
         invoice.setDueDate(invoice.calculateNextDuePayment());
+        invoice.setVatLevel(account.getVatLevel());
         return invoice;
 
     }
@@ -57,6 +58,13 @@ public class InvoiceController {
     @GetMapping("/new")
     public String initCreationForm (Account account, Model model){
         log.debug("Returning the Create / Update Invoice Form");
+        return VIEWS_INVOICE_CREATE_OR_UPDATE_FORM;
+    }
+
+    @GetMapping("/new/addcharge")
+    public String addChargeToInvoice (Account account, Model model){
+        log.debug("Returning the Create / Update Invoice Form");
+
         return VIEWS_INVOICE_CREATE_OR_UPDATE_FORM;
     }
 

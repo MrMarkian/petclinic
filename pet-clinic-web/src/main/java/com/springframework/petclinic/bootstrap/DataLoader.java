@@ -100,6 +100,7 @@ public class DataLoader implements CommandLineRunner {
         owner1.setAddress("123 Brickerel");
         owner1.setCity("Miami");
         owner1.setTelephone("1231231234");
+        owner1.setPostCode("MI2 7MI");
 
 
         Pet mikesPet = new Pet();
@@ -155,6 +156,7 @@ public class DataLoader implements CommandLineRunner {
         owner2.setAddress("38 Penny Lane");
         owner2.setCity("Michigan");
         owner2.setTelephone("1231231234");
+        owner2.setPostCode("MC138M");
 
 
         Pet fionasCat = new Pet();
@@ -172,6 +174,7 @@ public class DataLoader implements CommandLineRunner {
         owner3.setAddress("69 Red Light Lane");
         owner3.setCity("Seattle");
         owner3.setTelephone("555-999-888");
+        owner3.setPostCode("SE13 8L");
 
 
         Pet faysCat = new Pet();

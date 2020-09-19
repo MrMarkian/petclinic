@@ -35,6 +35,8 @@ public class Owner extends Person{
     private String city;
     @Column(name = "telephone")
     private String telephone;
+    @Column(name = "postCode")
+    private String postCode;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     @OrderBy("id ASC")

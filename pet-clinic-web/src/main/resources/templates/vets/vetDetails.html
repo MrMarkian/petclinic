@@ -22,6 +22,10 @@
         <td th:text="*{city}"></td>
     </tr>
     <tr>
+        <th>Post Code</th>
+        <td th:text="*{postCode}"></td>
+    </tr>
+    <tr>
         <th>Telephone</th>
         <td th:text="*{telephone}"></td>
     </tr>
@@ -31,9 +35,23 @@
         <td th:text="*{visitSet.size()}"></td>
     </tr>
 
-
-
 </table>
+<h1>Upcoming Appointments</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Date Time</th>
+        <th>Description</th>
+        <th>Pet Name</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="visit : ${vet.visitSet}">
+        <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}" ></td>
+        <td th:text=" ${visit.description}" ></td>
+        <td th:text=" ${visit.pet.name}" ></td>
+        <td><a th:href="@{../owners/{ownerId}/pets/{petId}/visits/{visitId}/edit(ownerId=${visit.pet.owner.id},petId=${visit.pet.id},visitId=${visit.id})}">Edit</a></td>
+    </tr>
+</table>
+
 
 </body>
 </html>

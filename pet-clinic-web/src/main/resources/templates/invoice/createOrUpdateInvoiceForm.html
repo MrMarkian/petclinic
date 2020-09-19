@@ -11,14 +11,57 @@
     <input type="hidden" name="paymentId" th:value="${id}" />
     <div class="form-group has-feedback">
 
-        <span th:text="${invoice.account?.creationDate + ' - ' + invoice.account.owner?.firstName + ' ' + invoice.account.owner?.lastName}" ></span>
+        <table class="table table">
+            <thead>
+            <tr>
+                <h1>Invoice</h1>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr>
+            <td>
+                <dl class="dl-horizontal">
+                    <dt><b>Owner: </b></dt>
+                    <dd th:text="${invoice.account.owner.firstName + ' ' + invoice.account.owner.lastName}" ></dd>
+                    <dt><b>Address: </b></dt>
+                    <dd th:text="${invoice.account.owner.address}" ></dd>
+                    <dt><b>City: </b></dt>
+                    <dd th:text="${invoice.account.owner.city}" ></dd>
+                    <dt><b>Post Code: </b></dt>
+                    <dd th:text="${invoice.account.owner.postCode}" ></dd>
+                </dl>
+            </td>
+                <td>
+                    <dl class="dl-horizontal">
+                        <dt>Bill Date:</dt>
+                        <dd th:text="${invoice.generatedDate}" ></dd>
+                        <dt>Payment Due Date:</dt>
+                        <dd th:text="${invoice.getDueDate()}" ></dd>
+                    </dl>
+                </td>
+            </tr>
+<tr>
+  <td>
+    <dl class="dl-horizontal">
+        <dt>
+            <a th:href="@{{id}/account/{accountId}/invoice/{invoiceId}/addcharge(id=${owner.id}, accountId=${invoice.account.id}, invoiceId=${invoice.id})}" class="btn btn-link" >Add Chargeable</a>
+        </dt>
+        <dd></dd>
+    </dl>
+  </td>
+</tr>
+            </tbody>
+        </table>
+
         <p></p>
 <!--        <label th:class="${#fields.hasErrors('total')} ? 'alert-danger' : 'dark' ">
             Total:
             <input size="60" type="text" class="form-control" th:field="*{total}"/></label>-->
-        <b th:text="'Due Date:' +${invoice.dueDate}"></b>
+
         <label>
-            <input th:replace="~{fragments/inputField :: input ('Total:', 'total', 'float')}" >
+            <input th:replace="~{fragments/inputField :: input ('Vat:', 'vatLevel', 'text-readonly')}" >
+            <input th:replace="~{fragments/inputField :: input ('Total:', 'total', 'float-readonly')}" >
         </label>
 
         <div>

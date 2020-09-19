@@ -31,5 +31,8 @@ public class Vet extends Person{
     @Column(name = "telephone")
     private String telephone;
 
+    @Column(name = "postcode")
+    private String postCode;
+
 }
 

@@ -15,6 +15,9 @@ import javax.persistence.*;
 @Table(name = "items")
 public class ChargeItem extends BaseEntity {
 
+    @Column(name = "quantity")
+    private Integer quantity;
+
     @Column(name = "price")
     private Float itemPrice;
 

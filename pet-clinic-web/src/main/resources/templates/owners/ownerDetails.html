@@ -10,16 +10,12 @@
 </head>
 <body>
 
-<h2>Owner Details<a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-link">Edit Owner</a></h2>
+<h1 th:text="${owner.firstName + ' ' + owner.lastName}">Owner Details ></h1>
 
 
 
 <table class="table tableSubHeadingColor" th:object="${owner}">
-
-    <tr>
-        <th>Name</th>
-        <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
-    </tr>
+    <a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-link">Edit Owner</a>
     <tr>
         <th>Address</th>
         <td th:text="*{address}"></td>
@@ -27,6 +23,10 @@
     <tr>
         <th>City</th>
         <td th:text="*{city}"></td>
+    </tr>
+    <tr>
+        <th>Post Code</th>
+        <td th:text="*{postCode}"></td>
     </tr>
     <tr>
         <th>Telephone</th>

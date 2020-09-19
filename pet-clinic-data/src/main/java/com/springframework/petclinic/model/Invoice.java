@@ -28,6 +28,7 @@ public class Invoice extends BaseEntity {
     private LocalDate generatedDate = LocalDate.now();
     private LocalDate dueDate;
     private Integer minPaymentNoticeTime = 5;
+    private float vatLevel;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -50,5 +51,8 @@ public class Invoice extends BaseEntity {
             return LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), account.getPaymentDueDate());
     }
 
+    public void setVatLevel(float vat){
+        vatLevel = vat;
+    }
 
 }

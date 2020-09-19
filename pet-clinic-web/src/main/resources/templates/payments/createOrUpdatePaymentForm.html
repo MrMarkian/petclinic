@@ -11,12 +11,8 @@
 <form th:object="${payment}" class="form-horizontal" method="post">
     <input type="hidden" name="paymentId" th:value="${id}" />
 <div class="form-group has-feedback">
-    <label th:class="${#fields.hasErrors('inputDate')} ? 'alert-danger' : 'dark' ">
-        Input Date:
-        <input readonly size="60" type="text" class="form-control" th:field="*{inputDate}" width="100px"/></label>
- <!--   <label th:class="${#fields.hasErrors('amount')} ? 'alert-danger' : 'dark' ">
-        Payment amount:
-        <input size="60" type="text" class="form-control" th:field="*{amount}"/></label>-->
+
+    <input th:replace="~{fragments/inputField :: input ('Input Date', 'inputDate', 'text-readonly')}"  />
 
     <input th:replace="~{fragments/inputField :: input ('Payment Amount', 'amount', 'float')}"  />
 
